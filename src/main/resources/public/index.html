@@ -1,0 +1,43 @@
+<html>
+<header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</header>
+
+<input type="text" id="name" placeholder="Name">
+<input type="text" id="description" placeholder="Description">
+<input type="number" id="quantityLeft" placeholder="quantityLeft">
+<input type="number" id="price" placeholder="Price">
+
+<input type="submit" id="save" value="Save">
+
+<script>
+        $("#save").click(
+            function() {
+                let name = $("#name").val();
+                let description = $("#description").val();
+                let quantityLeft = $("#quantityLeft").val();
+                let price = $("#price").val();
+
+                let data = {
+                        name,
+                        description,
+                        quantityLeft,
+                        price
+                    }
+
+                $.ajax({
+                    url: 'http://localhost:8080/product/save',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": 'application/json'
+                    },
+                    dataType: 'json',
+                    success: function(data, status) {
+                            alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        }
+                })
+            }
+        );
+</script>
+</html>
